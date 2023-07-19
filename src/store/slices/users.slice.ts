@@ -1,30 +1,11 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import api from "../../http/api";
+import {createSlice} from '@reduxjs/toolkit'
+import { IUsersSlice } from "../../interfaces/userListInterfaces";
+import {createUser, fetchUsers, removeUser} from "../asyncThunks/usersThunks";
 
-interface IUser {
-  id: number;
-  name: string;
-  email: string;
-}
-export interface IUsersState {
-  users: IUser[];
-  loading: boolean;
-}
-
-const initialState: IUsersState = {
+const initialState: IUsersSlice = {
   users: [],
   loading: true
 }
-
-export const fetchUsers = createAsyncThunk(
-  'users/fetchUsers',
-  async () => {
-    const response = await api.get('users');
-    const { data } = response;
-
-    return data;
-  }
-)
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -36,6 +17,18 @@ export const usersSlice = createSlice({
       (state, action) => {
         state.users = action.payload;
         state.loading = false;
+      }
+    )
+    builder.addCase(
+      removeUser.fulfilled,
+      (state, action) => {
+        state.users = state.users.filter((user) => user.id !== action.payload);
+      }
+    )
+    builder.addCase(
+      createUser.fulfilled,
+      (state, action) => {
+        state.users.push(action.payload);
       }
     )
   }
