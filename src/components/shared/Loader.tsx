@@ -1,7 +1,7 @@
 import React from "react";
 
 const Loader = () => {
-  return <div>Loading...</div>
+  return <div className="h-screen text-white flex justify-center items-center w-full">Loading...</div>
 };
 
 export default Loader;

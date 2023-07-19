@@ -7,7 +7,11 @@ import CreateNewButton from "./components/shared/CreateNewButton";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { loading, users } = useAppSelector((state) => state.users);
+  const {
+    loading,
+    users,
+    createPending
+  } = useAppSelector((state) => state.users);
 
   const createUserHandler = useCallback(() => {
       dispatch(createUser(users.length + 1));
@@ -20,7 +24,7 @@ function App() {
   return (
     <div className="bg-cyan-950 h-screen p-3 relative">
       {loading ? <Loader /> : <UserList />}
-      <CreateNewButton clickHandler={createUserHandler} />
+      <CreateNewButton clickHandler={createUserHandler} disabled={createPending} />
     </div>
   )
 }

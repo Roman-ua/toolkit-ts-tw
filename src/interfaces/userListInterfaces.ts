@@ -6,4 +6,6 @@ export interface IUser {
 export interface IUsersSlice {
   users: IUser[];
   loading: boolean;
+  removePending: boolean,
+  createPending: boolean,
 }
