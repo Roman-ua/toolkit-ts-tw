@@ -27,8 +27,7 @@ export const usersSlice = createSlice({
         state.users = state.users.filter((user) => user.id !== action.payload);
         state.removePending = false;
       },
-    )
-    builder.addCase(
+    ).addCase(
       removeUser.pending,
       (state) => {
         state.removePending = true;
@@ -40,8 +39,7 @@ export const usersSlice = createSlice({
         state.users.push(action.payload);
         state.createPending = false;
       }
-    )
-    builder.addCase(
+    ).addCase(
       createUser.pending,
       (state) => {
         state.createPending = true;
