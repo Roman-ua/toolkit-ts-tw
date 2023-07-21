@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { IUsersSlice } from "../../interfaces/userListInterfaces";
-import {createUser, fetchUsers, removeUser} from "../asyncThunks/usersThunks";
+import { createUser, fetchUsers, removeUser } from "../asyncThunks/usersThunks";
 
 const initialState: IUsersSlice = {
   users: [],
@@ -20,8 +20,7 @@ export const usersSlice = createSlice({
         state.users = action.payload;
         state.loading = false;
       }
-    )
-    builder.addCase(
+    ).addCase(
       removeUser.fulfilled,
       (state, action) => {
         state.users = state.users.filter((user) => user.id !== action.payload);
@@ -32,8 +31,7 @@ export const usersSlice = createSlice({
       (state) => {
         state.removePending = true;
       }
-    )
-    builder.addCase(
+    ).addCase(
       createUser.fulfilled,
       (state, action) => {
         state.users.push(action.payload);

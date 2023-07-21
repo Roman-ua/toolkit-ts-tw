@@ -1,8 +1,8 @@
-import React, {useCallback, useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "./sharedHooks/commonHooks";
+import React, { useCallback, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from "./sharedHooks/commonHooks";
 import UserList from "./components/userList/UserList";
 import Loader from "./components/shared/Loader";
-import {createUser, fetchUsers} from "./store/asyncThunks/usersThunks";
+import { createUser, fetchUsers } from "./store/asyncThunks/usersThunks";
 import CreateNewButton from "./components/shared/CreateNewButton";
 
 function App() {
