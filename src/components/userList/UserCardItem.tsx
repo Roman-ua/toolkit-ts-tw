@@ -1,8 +1,8 @@
-import React, {useCallback} from "react";
+import React, { useCallback } from "react";
 import { IUser } from "../../interfaces/userListInterfaces";
 import CloseButton from "../shared/CloseButton";
-import {removeUser} from "../../store/asyncThunks/usersThunks";
-import {useAppDispatch, useAppSelector} from "../../sharedHooks/commonHooks";
+import { removeUser } from "../../store/asyncThunks/usersThunks";
+import { useAppDispatch, useAppSelector } from "../../sharedHooks/commonHooks";
 
 interface Props {
   user: IUser;
