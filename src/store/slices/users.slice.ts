@@ -1,29 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { IUsersSlice } from "../../interfaces/userListInterfaces";
+import {createEntityAdapter, createSlice} from '@reduxjs/toolkit'
+import {IUser, IUsersSlice} from "../../interfaces/userListInterfaces";
 import { createUser, fetchUsers, removeUser } from "../asyncThunks/usersThunks";
 
-const initialState: IUsersSlice = {
-  users: [],
-  loading: true,
-  removePending: false,
-  createPending: false
-}
+const usersAdapter = createEntityAdapter({
+  sortComparer: (a: IUser, b: IUser) => a.id - b.id,
+});
+
+export const { selectAll } = usersAdapter.getSelectors((state: IUsersSlice) => state.users);
 
 export const usersSlice = createSlice({
   name: 'users',
-  initialState,
+  initialState: usersAdapter.getInitialState({
+    loading: true,
+    removePending: false,
+    createPending: false
+  }),
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
       fetchUsers.fulfilled,
       (state, action) => {
-        state.users = action.payload;
+        usersAdapter.setAll(state, action.payload);
         state.loading = false;
       }
     ).addCase(
       removeUser.fulfilled,
       (state, action) => {
-        state.users = state.users.filter((user) => user.id !== action.payload);
+        usersAdapter.removeOne(state, `${action.payload}`);
         state.removePending = false;
       },
     ).addCase(
@@ -34,7 +37,7 @@ export const usersSlice = createSlice({
     ).addCase(
       createUser.fulfilled,
       (state, action) => {
-        state.users.push(action.payload);
+        usersAdapter.addOne(state, action.payload);
         state.createPending = false;
       }
     ).addCase(

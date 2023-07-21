@@ -4,14 +4,14 @@ import UserList from "./components/userList/UserList";
 import Loader from "./components/shared/Loader";
 import { createUser, fetchUsers } from "./store/asyncThunks/usersThunks";
 import CreateNewButton from "./components/shared/CreateNewButton";
+import { selectAll } from "./store/slices/users.slice";
+import { useSelector } from "react-redux";
 
 function App() {
   const dispatch = useAppDispatch();
-  const {
-    loading,
-    users,
-    createPending
-  } = useAppSelector((state) => state.users);
+
+  const { loading, createPending} = useAppSelector((state) => state.users);
+  const users = useSelector(selectAll);
 
   const createUserHandler = useCallback(() => {
       dispatch(createUser(users.length + 1));

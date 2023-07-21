@@ -4,8 +4,13 @@ export interface IUser {
   email: string;
 }
 export interface IUsersSlice {
-  users: IUser[];
-  loading: boolean;
-  removePending: boolean,
-  createPending: boolean,
+  users: {
+    entities: {
+      [key: string]: IUser;
+    },
+    ids: number[],
+    loading: boolean;
+    removePending: boolean,
+    createPending: boolean,
+  };
 }
